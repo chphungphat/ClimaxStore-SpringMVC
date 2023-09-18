@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="js/scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+            crossorigin="anonymous"></script>
+    <style>
+        .text-underline:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+</head>
+<body>
+<div th:insert="navbar.html :: navbar(${categoryList})"></div>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0"
+                     th:src="${productDetail.productCoverUrl}" alt="..."/>
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">
+                    <span th:text="${productDetail.productName}"></span>
+                </h1>
+                <div class="small mb-1">
+                    Category:
+                    <span th:each="category : ${productDetail.categoryList}" th:text="${category.categoryName}">
+                    </span>
+                </div>
+
+                <div class="small mb-1">
+                    Developer:
+                    <span th:text="${productDetail.developer.developerName}"></span>
+                </div>
+                <div class="small mb-1">
+                    Release Date:
+                    <span th:text="${#dates.format(productDetail.releaseDate, 'dd-MM-yyyy')}"></span>
+<!--                        <span th:text="${productDetail.releaseDate}"></span>-->
+                </div>
+                <div class="fs-5 mb-5">
+                    <span>
+                        $
+                        <span th:text="${productDetail.price}"></span>
+                    </span>
+                </div>
+                <p class="lead" th:text="${productDetail.productDetailDescription}"></p>
+                <div class="d-flex">
+                    <form th:action="@{/products/add/{id}(id=${productDetail.id})}" method="post">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:insert="footer.html :: footer"></div>
+</body>
+</html>

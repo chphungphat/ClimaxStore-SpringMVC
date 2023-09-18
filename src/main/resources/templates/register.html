@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .gaming-video-background {
+            background-image: url("https://wallpapercave.com/wp/wp9204437.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+        }
+
+        .gaming-video-content {
+            height: 100%;
+        }
+
+        .gaming-video-content .container {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .reveal-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<!-- Section: Design Block -->
+<section class="gaming-video-background">
+    <!-- Jumbotron -->
+    <div class="gaming-video-content">
+        <div class="container py-5">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold">
+                        So you want to <br/>
+                        <span class="text-primary">escape reality</span>
+                    </h1>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <form th:action="@{/register}" method="post" th:object="${userRegisterDto}">
+                                <div class="form-group mb-4">
+                                    <label for="userName" class="form-label">Username</label>
+                                    <input type="text" id="userName" class="form-control" th:field="*{userName}"/>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" id="email" class="form-control" th:field="*{email}"/>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="text" id="phoneNumber" class="form-control" th:field="*{phoneNumber}"/>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="password" class="form-control"
+                                               th:field="*{password}"/>
+                                        <i class="far fa-eye reveal-password" id="revealPassword"></i>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" id="confirmPassword" class="form-control"/>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary btn-block mb-4">
+                                    Sign up
+                                </button>
+
+                                <!-- Display message if registration is successful -->
+                                <div th:if="${message}" class="alert alert-success text-center" role="alert">
+                                    <span th:text="${message}"></span>
+                                </div>
+
+                                <div class="text-center">
+                                    <p>
+                                        <a href="/login">I already have an account</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
+    </div>
+</section>
+<!-- Section: Design Block -->
+<script>
+    // Function to reveal or hide the password
+    function revealPassword() {
+        var passwordInput = document.getElementById("password");
+        var revealPasswordIcon = document.getElementById("revealPassword");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            revealPasswordIcon.classList.remove("far", "fa-eye");
+            revealPasswordIcon.classList.add("far", "fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            revealPasswordIcon.classList.remove("far", "fa-eye-slash");
+            revealPasswordIcon.classList.add("far", "fa-eye");
+        }
+    }
+
+    // Add event listener to the reveal password icon
+    var revealPasswordIcon = document.getElementById("revealPassword");
+    revealPasswordIcon.addEventListener("click", revealPassword);
+</script>
+</body>
+</html>
